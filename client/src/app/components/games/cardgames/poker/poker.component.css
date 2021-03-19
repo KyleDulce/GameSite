@@ -1,0 +1,162 @@
+
+#PlayerArea {
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 10px;
+    height: 100px;
+    border-style: solid;
+    border-width: 3px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    white-space: nowrap;
+}
+
+.playerListing {
+    position: relative;
+    display: inline-block;
+
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: black;
+
+    height: 100px;
+    width: 150px;
+
+    text-align: center;
+    vertical-align: middle;
+    align-items: center;
+}
+
+.turn {
+    background-color: dodgerblue;
+    color: white;
+}
+
+p {
+    font-family: 'Varela Round', sans-serif;
+    line-height: 20px;
+}
+
+#CenterArea {
+    display: block;
+
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    height: 50%;
+
+    border-style: solid;
+    border-width: 3px;
+}
+
+h2 {
+    text-align: center;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 22px;
+    font-weight: 1000;
+}
+
+#DealtCards {
+    margin: auto auto auto auto;
+    height: 122px;
+    width: 600px;
+    text-align: center;
+}
+
+#HandArea {
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 10px;
+    height: 140px;
+    border-style: solid;
+    border-width: 3px;
+
+    bottom: 0px;
+
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+    white-space: nowrap;
+}
+
+#BetArea {
+    display: inline-block;
+    position: relative;
+
+    width: 55%;
+    height: 100%;
+
+    border-right-style: solid;
+    border-right-width: 1px;
+
+    white-space: nowrap;
+
+    overflow-x: auto;
+}
+
+#Hand {
+    display: inline-block;
+    position: relative;
+
+    width: 45%;
+    height: 100%;
+
+    border-left-style: solid;
+    border-left-width: 1px;
+
+    white-space: nowrap;
+
+    overflow-x: auto;
+}
+
+img{
+    height: 120px;
+    margin-left: 20px;
+    margin-top: 5px;
+
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+}
+
+.colRow {
+    position: static;
+    width: 100%;
+    height: 100%;
+}
+
+.colDisp {
+    min-width: 20%;
+    height: 100%;
+}
+
+h3 {
+    text-align: center;
+    margin: 3px 3px 3px 3px;
+}
+
+.moneyVal {
+    text-align: center;
+}
+
+.HandButton {
+    display: block;
+    background-color: orange;
+    margin: auto auto 3px auto;
+}
+
+.betButton {
+    display: inline-block;
+    background-color: orange;
+    margin-left: 3px;
+    margin-bottom: 3px;
+}
+
+.fillfull {
+    height: 100%;
+    width: 100%;
+}

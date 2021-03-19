@@ -1,0 +1,24 @@
+<header>
+    <input type="image" id="Logo" src="assets/global/Logo.png" routerLink="/">
+
+    <div id="ButtonArea">
+        <button id="RoomButton" routerLink="/rooms" mat-raised-button>Rooms</button>
+        <button id="RoomButton" routerLink="/create" mat-raised-button>Create Room</button>
+    </div>
+
+    <form id="Login-Group">
+        <label class="login-comp">Logged In as: {{UserName}}</label>
+        <button type="button" id="CNButton" class="login-comp" [matMenuTriggerFor]="Avatar">
+            <!-- Change Name -->
+            <img src={{pp_pic}}>
+        </button>
+        <mat-menu #Avatar='matMenu' xPosition="before">
+            <button mat-menu-item (click)="changeNameButton()">Change Name</button>
+            <button mat-menu-item (click)="changePpButton()">Change PP</button>
+            <button mat-menu-item (click)="testFeature()">Debug Button</button>
+        </mat-menu>
+    </form>
+</header>
+<div id="routerContents">
+    <router-outlet id="router"></router-outlet>
+</div>

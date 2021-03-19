@@ -1,0 +1,18 @@
+img {
+    height: 100px;
+    width: 100px;;
+    margin: auto auto auto auto;
+    border-radius: 50%;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: 100px;
+    margin-bottom: 20px;
+}
+
+#Change {
+    background-color: orange;
+}

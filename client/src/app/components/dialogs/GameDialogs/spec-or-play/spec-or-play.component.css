@@ -1,0 +1,14 @@
+
+button {
+    background-color: orange;
+}
+
+#spec {
+    display: block;
+    float: left;
+}
+
+#play {
+    display: block;
+    float: right;
+}

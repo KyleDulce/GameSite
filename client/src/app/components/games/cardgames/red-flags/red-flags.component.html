@@ -1,0 +1,143 @@
+<div id="topArea">
+    <div id="PlayerArea">
+
+        <mat-list style="padding-top: 0;">
+            <div id="GameHeader">Players</div>
+
+            <div *ngFor="let p of players">
+                <mat-list-item class="playernames" [ngClass]="{'selectedCard': p.highlight}">
+                    <div class="nameholder">
+
+                        <div class="leftName"><strong>{{p.name}}</strong><br />Points: {{p.points}}</div>
+                        <div class="rightStatus">{{p.status}}</div>
+                    </div>
+
+                </mat-list-item>
+                <mat-divider></mat-divider>
+            </div>
+        </mat-list>
+
+    </div>
+
+    <div id="CardArea">
+
+        <div id="AdminArea" *ngIf="!inprogress">
+            <mat-form-field style="margin: auto; display: block; width: 150px; padding-top: 5%;">
+                <mat-label>Winning Points</mat-label>
+                <input matInput placeholder="E.g 5" [formControl]="points" required>
+                <mat-error *ngIf="points.hasError('pattern')">
+                    Please enter a valid number
+                </mat-error>
+                <mat-error *ngIf="points.hasError('required')">
+                    value is <strong>required*</strong>
+                </mat-error>
+                <mat-error *ngIf="points.hasError('min')">
+                    value must be greater than or equal to 1
+                </mat-error>
+            </mat-form-field>
+            <mat-checkbox [(ngModel)]="hideNamesCheck" style="margin-left: 10px;">
+                Hide Names?
+            </mat-checkbox>
+            <br>
+            <br>
+            <section>
+                Avaliable Decks<br>
+                <mat-checkbox *ngFor="let deck of avaliableDecks" [(ngModel)]="deck.checked" style="margin-left: 10px;">
+                    {{deck.text}}
+                </mat-checkbox>
+            </section>
+            <button id="startButton" mat-raised-button style="background-color: orange;" [disabled]="!canStart"
+                (click)="startButton()">Start Game</button>
+        </div>
+
+        <div id="gameArea" *ngIf="inprogress">
+
+            <div id="GameHeader">
+                <span *ngIf="playersselecting && perkSelection">Find a date for <strong>{{currentDater}}</strong></span>
+                <span *ngIf="playersselecting && !perkSelection">Ruin the date revealed to you</span>
+                <span *ngIf="!playersselecting"><strong>{{currentDater}}</strong> is choosing the best date</span>
+            </div>
+
+            <div>
+
+                <mat-list style="padding-top: 0;">
+                    <div class="cardrow" *ngFor="let tc of tableCards">
+                        <mat-list-item class="cardrow">
+                            <table class="cardholder">
+                                <tr>
+                                    <td>
+                                        <p *ngIf="!hideNames" class="TableNameLeft"><strong>{{tc.playername}}</strong></p>
+                                        <button *ngIf="isCurrentDater && showTableCards && canChose" mat-raised-button
+                                            style="background-color: orange;"
+                                            (click)="submitDate(tc.pid)">Choose</button>
+                                    </td>
+
+                                    <td *ngFor="let tcp of tc.perks; let tci = index">
+                                        <button style="border: none; background-color: transparent;">
+                                            <div class="card whitec">
+                                                <span
+                                                    *ngIf="showTableCards || (tc.pid == playerId && perkSelection) || (tc.pid == responsibilitypid && !perkSelection)">{{tcp.content}}</span>
+                                            </div>
+                                        </button>
+                                    </td>
+
+                                    <td *ngIf="(tc.flags.length > 0 && showTableCards) && !hideNames">
+                                        <p class="TableNameLeft"><strong>{{tc.flagsbyname}}</strong></p>
+                                    </td>
+
+                                    <td *ngFor="let tcf of tc.flags; let tcj = index">
+                                        <button *ngIf="tc.flags.length > 0"
+                                            style="border: none; background-color: transparent;">
+                                            <div class="card redc">
+                                                <span
+                                                    *ngIf="showTableCards || tc.flagspid == playerId">{{tcf.content}}</span>
+                                            </div>
+                                        </button>
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                    </div>
+                </mat-list>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="HandArea">
+    <table style="height: 100%; width: 100%;" *ngIf="inprogress && !isCurrentDater && playerId != 0">
+        <tr>
+
+            <td class="handElement">
+                <button style="background-color: orange; display: block; margin: auto;" mat-raised-button
+                    (click)="submitSelection()">Submit</button>
+            </td>
+
+            <td *ngFor="let p of perks; let i = index">
+                <button style="border: none; background-color: transparent;" (click)="chooseCardPerk(i)">
+                    <div class="card whitec" [ngClass]="{'selectedCard': selectedPerk == i}">
+                        {{p.content}}
+                    </div>
+                </button>
+            </td>
+
+            <td *ngFor="let f of flags; let j = index">
+                <button style="border: none; background-color: transparent;" (click)="chooseCardFlag(j)">
+                    <div class="card redc" [ngClass]="{'selectedCard': selectedFlag == j}">
+                        {{f.content}}
+                    </div>
+                </button>
+            </td>
+
+        </tr>
+    </table>
+
+    <div id="HandWaitDates" *ngIf="inprogress && isCurrentDater">
+        <h1>You are finding your dream date</h1>
+    </div>
+
+</div>

@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+app-root{
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+.mat-progress-spinner circle, .mat-spinner circle {
+    stroke: orange!important;
+}
+
+.mat-fab .mat-button-wrapper {
+    padding: 0 0 0 0!important;
+}
+
+.GamePage {
+    position: absolute;
+    width: 100%;
+    top:0;
+    bottom: 0;
+}
+
+.mat-drawer-content {
+    position: relative!important;
+    display: block!important;
+    bottom: 0;
+    /* overflow: hidden!important; */
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

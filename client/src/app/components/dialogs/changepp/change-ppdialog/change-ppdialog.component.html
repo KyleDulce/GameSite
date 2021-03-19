@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Change Profile Picture</h1>
+
+<mat-dialog-content>
+<mat-radio-group class="wrapper" aria-label="Select an option" [(ngModel)]="data.NewPP">
+    <mat-radio-button *ngFor="let p of validPpPics; let i = index" value="{{i}}"><img src="{{p}}"></mat-radio-button>
+</mat-radio-group> 
+</mat-dialog-content>
+
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button id="Change" mat-button [mat-dialog-close]="data" cdkFocusInitial>Change</button>
+</div>

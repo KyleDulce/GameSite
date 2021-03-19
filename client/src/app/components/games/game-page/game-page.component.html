@@ -1,0 +1,29 @@
+<mat-drawer-container autosize style="background-color: white;">
+
+    <button id="drawButtonLeft" (click)="leaveGame()" mat-raised-button>Leave Room</button>
+
+    <mat-drawer #drawer mode="side" position="end" id="ChatBox">
+        <div #chatCom id="chatArea">
+            <div class="textmsg" *ngFor="let m of chatMsgs.data">
+                <img src={{allowedPpPicsArray[m.pp]}}><strong>&nbsp;{{m.name}}&nbsp;</strong>
+                <span>{{m.msg}}</span>
+            </div>
+        </div>
+        
+        <form id="chatform" (keydown.enter)="sendChatMsg()">
+            <mat-form-field id="textareachat">
+                <textarea matInput (keydown.enter)="onKeydownText($event)" [(ngModel)]="textBoxData" placeholder="Send a Message" style="resize: none; background-color: #ebebeb; height: 50px;" [ngModelOptions]="{standalone: true}"></textarea>
+            </mat-form-field>
+            <button class="orangeButton" mat-raised-button (click)="sendChatMsg()">Send</button>
+        </form>
+
+    </mat-drawer>
+
+    <button id="drawButtonRight" (click)="toggleChat()" mat-icon-button>
+        <mat-icon class="whiteicon" [(matBadge)]="chatUnread" matBadgeColor="warn" [(matBadgeHidden)]="hidden">chat</mat-icon>
+    </button>
+
+    <div id="GameArea">
+        <ng-template appGame></ng-template>
+    </div>    
+</mat-drawer-container>

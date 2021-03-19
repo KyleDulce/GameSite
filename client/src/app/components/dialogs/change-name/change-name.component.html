@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Change Name</h1>
+<mat-dialog-content>
+    <mat-form-field id="ChangeNameField">
+        <mat-label>Change Name Here</mat-label>
+        <input matInput type="text" [(ngModel)]="data.NewName" [ngModelOptions]="{standalone: true}">
+        <button type="button" mat-button *ngIf="data.NewName" matSuffix mat-icon-button aria-label="Clear"
+            (click)="data.NewName=''">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</mat-dialog-content>
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button id="Change" mat-button [mat-dialog-close]="data" cdkFocusInitial>Change</button>
+</div>

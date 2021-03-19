@@ -1,0 +1,17 @@
+
+<h1 mat-dialog-title>{{data.title}}</h1>
+
+<mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Change Name Here</mat-label>
+        <input matInput type="text" [(ngModel)]="data.output" [ngModelOptions]="{standalone: true}">
+        <button type="button" mat-button *ngIf="data.output" matSuffix mat-icon-button aria-label="Clear"
+            (click)="data.output=''">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</mat-dialog-content>
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button id="Change" mat-button (click)="onSubmit()" cdkFocusInitial>Submit</button>
+</div>

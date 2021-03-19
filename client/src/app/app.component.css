@@ -1,0 +1,111 @@
+/*Main Header*/
+header {
+    overflow: hidden;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+
+    height: 80px;
+    width: 100%;
+
+    background-color: white;
+    box-shadow: 3px 3px 1px grey;
+}
+
+#HeadTop {
+    height: 80px;
+    width: 100%;    
+}
+
+/*Logo*/
+
+#Logo {
+    height: 80px;
+    width: 142px;
+    margin-left: 15px;
+    float:left;
+}
+
+/*Buttons*/
+#ButtonArea {
+    overflow: hidden;
+    display: flex;
+    float: left;
+
+    height: 80px;
+    width: fit-content;
+
+    justify-content: center;
+    align-items: center;
+
+    margin-left: 50px;
+}
+
+#RoomButton {
+    margin-left: 10px;
+    background-color: orange;
+    width: 130px;
+    text-align: center;
+}
+
+/*Login Area*/
+#Login-Group {
+    display: flex;
+    position: absolute;
+    right:0px;
+    top: 0px;
+
+    height: 80px;
+
+    justify-content: center;
+    align-items: center;
+
+    margin-right: 15px;
+}
+
+#Login-Group * {
+    display: inline-block;
+    align-self: center;
+}
+
+/* #ChangeNameField {
+    width: 200px;
+    margin-left: 10px;
+    margin-right: 10px;
+} */
+
+.login-comp {
+    margin-left: 10px;
+}
+
+#CNButton {
+    border: none;
+    background-color: transparent;
+    height: 50px;
+    width: 50px;
+    padding: 0 0 0 0;
+    overflow: hidden;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+button:focus {
+    outline-style: none;
+}
+
+#CNButton img {
+    height: 50px;
+    margin: auto auto auto auto;
+}
+
+label {
+    font-family: Roboto, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+#routerContents {
+    position: absolute;
+    width: 100%;
+    top:80px;
+    bottom: 0;
+}

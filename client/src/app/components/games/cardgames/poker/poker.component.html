@@ -1,0 +1,76 @@
+<div id="PlayerArea">
+    <div class="playerListing" *ngFor="let p of players" [ngClass]="{'turn': p.turn}">
+        <p>
+            Name: {{p.name}}<br>
+            Balance: {{p.curBal}}<br>
+            Bet: {{p.curBet}}
+        </p>
+    </div>
+</div>
+
+<div id="CenterArea" *ngIf="started">
+    <h2>Jackpot<br>$9999</h2>
+    <div id="DealtCards">
+        <img *ngFor="let c of centerCards" [src]="getCardImgSrcShow(c.card, c.shouldShow)">
+    </div>
+</div>
+
+<div id="CenterArea" *ngIf="!started">
+    
+</div>
+
+<div id="HandArea">
+
+    <table id="BetArea" *ngIf="isBetting">
+        <tr class="colRow">
+            <td class="colDisp">
+                <div class="fillfull">
+                    <h3>Current Bet</h3>
+                    <p class="moneyVal">${{currentBet}}</p>
+                    <button mat-raised-button class="HandButton">Match</button>
+                </div>
+            </td>
+            <td class="colDisp">
+                <div class="fillfull">
+                    <h3>Your Bet</h3>
+                    <p class="moneyVal">${{playerBet}}</p>
+                </div>
+            </td>
+            <td class="colDisp">
+                <div class="fillfull">
+                    <h3>New Bet</h3>
+                    <p class="moneyVal">${{newBet}}</p>
+                    <button mat-raised-button class="HandButton">Raise</button>
+                </div>
+            </td>
+            <td class="colDisp">
+                <div class="fillfull">
+                    <button mat-raised-button class="betButton">+1</button>
+                    <button mat-raised-button class="betButton">+5</button><br>
+                    <button mat-raised-button class="betButton">+10</button>
+                    <button mat-raised-button class="betButton">+25</button><br>
+                    <button mat-raised-button class="betButton">+50</button>
+                    <button mat-raised-button class="betButton">+100</button>
+                </div>
+            </td>
+            <td class="colDisp">
+                <div class="fillfull">
+                    <button mat-raised-button class="HandButton">Fold</button>
+                    <button mat-raised-button class="HandButton">Check</button>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div id="BetArea" *ngIf="!isBetting">
+        <h2>Its not your turn to bet</h2>
+    </div>
+
+    <table id="Hand">
+        <tr>
+            <td>
+                <img *ngFor="let c of cards" [src]="getCardImgSrc(c)">
+            </td>
+        </tr>
+    </table>
+</div>
