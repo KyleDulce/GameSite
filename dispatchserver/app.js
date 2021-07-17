@@ -26,5 +26,5 @@ const server = require("http").Server(app);
 
 //listen for request on port 80, and as a callback function have the port listened on logged
 server.listen(port, () => {
-  console.log(`Server running at port ${port}`);
+  console.log(`Server listening at port ${port}`);
 });

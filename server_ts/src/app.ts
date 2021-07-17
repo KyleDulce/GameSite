@@ -64,5 +64,5 @@ Socket.sockets.on("connection", (socket) => {
 });
 
 server.listen(port, () => {
-    console.log(`Listening at port ${port}`);
+    console.log(`Server running at port ${port}`);
 });
