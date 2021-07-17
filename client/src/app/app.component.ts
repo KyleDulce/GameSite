@@ -6,6 +6,7 @@ import { PpPic } from 'src/app/models/pppics/PpPic';
 import { ChangePPDialogComponent } from './components/dialogs/changepp/change-ppdialog/change-ppdialog.component';
 import { ChangeDetectorRef } from '@angular/core';
 import { FailedToSendRequestComponent } from './components/dialogs/failed-to-send-request/failed-to-send-request.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,7 @@ export class AppComponent {
   pp_pic: string = "assets/IllegalPage/cry.png";
   private inputpp: number = 0;
 
-  constructor(private matDialog: MatDialog, private ref: ChangeDetectorRef) {
+  constructor(private matDialog: MatDialog, private ref: ChangeDetectorRef, private router: Router) {
     var str = localStorage.getItem(AppComponent.LOCAL_USERNAME_STORE);
     var ppstr = localStorage.getItem(AppComponent.LOCAL_PP_STORE);
     if (str == null || str == "undefined" || ppstr == null || ppstr == "undefined") {
@@ -89,9 +90,6 @@ export class AppComponent {
     }
   }
 
-  testFeature() {
-    this.matDialog.open(FailedToSendRequestComponent, {data: "Problem here"});
-  }
 
 }
 

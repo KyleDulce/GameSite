@@ -17,8 +17,11 @@ const allowedExt = [
 app.get('*', (req, res) =>{
   if(allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) {
     res.sendFile(path.join(__dirname));
-  } else {
-    res.sendFile(path.join(__dirname + "/public/index.html"));
+  } else if (req.url.indexOf("/external") > 0) {
+    res.sendFile(path.join(__dirname, "/public/external"))
+  }
+  else {
+    res.sendFile(path.join(__dirname, "/public/index.html"));
   }
 });
 

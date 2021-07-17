@@ -6,6 +6,7 @@ import { GamePageComponent } from './components/games/game-page/game-page.compon
 import { RoomCreatorComponent } from './components/games/room-creator/room-creator.component';
 import { RoomSelectorComponent } from './components/games/room-selector/room-selector.component';
 import { IllegalPageComponent } from './components/illegal-page/illegal-page.component';
+import { RedirectPageComponent } from './components/redirect-page/redirect-page.component';
 
 const routes: Routes = [
   {path: "", component: HomePageComponent}, 
@@ -15,6 +16,7 @@ const routes: Routes = [
   
   {path: "debug/testpage", component: ChangeNameComponent},
 
+  {path:"external/**", component:RedirectPageComponent},
   {path: "**", component: IllegalPageComponent}
 ]
 

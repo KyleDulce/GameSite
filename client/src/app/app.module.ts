@@ -37,6 +37,7 @@ import { SingleInputDialogComponent } from './components/dialogs/GameDialogs/sin
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TycoonComponent } from './components/games/cardgames/tycoon/tycoon.component';
 import { PokerComponent } from './components/games/cardgames/poker/poker.component';
+import { RedirectPageComponent } from './components/redirect-page/redirect-page.component';
 
 const config: SocketIoConfig = {
   url: "http://" + window.location.hostname + ":3000", options: {
@@ -67,7 +68,8 @@ const config: SocketIoConfig = {
     ConfirmLeaveComponent,
     SingleInputDialogComponent,
     TycoonComponent,
-    PokerComponent
+    PokerComponent,
+    RedirectPageComponent
   ],
   imports: [
     BrowserModule,
