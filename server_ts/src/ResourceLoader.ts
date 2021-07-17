@@ -57,7 +57,9 @@ export class ResourceLoader {
     public getTraditionalFullDeck(self: ResourceLoader): Promise<TraditionalDeck> {
         return new Promise((resolve, reject) => {
             if (self.fullDeck != null) {
-                resolve(self.fullDeck);
+                var cloned: TraditionalDeck = TraditionalDeck.clone(self.fullDeck);
+                resolve(cloned);
+                //resolve(self.fullDeck);
             } else {
                 var deck: Card[] = [];
 
@@ -78,7 +80,10 @@ export class ResourceLoader {
                 deck.push(rj);
 
                 self.fullDeck = {deck: deck};
-                resolve(self.fullDeck);
+
+                var cloned: TraditionalDeck = TraditionalDeck.clone(self.fullDeck);
+                resolve(cloned);
+                //resolve(self.fullDeck);
             }
         });
     }
@@ -86,7 +91,9 @@ export class ResourceLoader {
     public getJokerlessTraditionalFullDeck(self: ResourceLoader): Promise<TraditionalDeck> {
         return new Promise((resolve, reject) => {
             if (self.jokerlessDeck != null) {
-                resolve(self.jokerlessDeck);
+                var cloned: TraditionalDeck = TraditionalDeck.clone(self.jokerlessDeck);
+                resolve(cloned);
+                //resolve(self.jokerlessDeck);
             } else {
 
                 var deck: Card[] = [];
@@ -102,7 +109,9 @@ export class ResourceLoader {
                 }
 
                 self.jokerlessDeck = {deck: deck};
-                resolve(self.jokerlessDeck);
+                var cloned: TraditionalDeck = TraditionalDeck.clone(self.jokerlessDeck);
+                resolve(cloned);
+                //resolve(self.jokerlessDeck);
             }
         });
     }
@@ -110,7 +119,9 @@ export class ResourceLoader {
     public getRedFlagsResources(self: ResourceLoader): Promise<RedFlagDecks> {
         return new Promise((resolve, reject) => {
             if(self.redflagdata != null) {
-                resolve(self.redflagdata);
+                var cloned: RedFlagDecks = RedFlagDecks.clone(self.redflagdata);
+                //resolve(self.redflagdata);
+                resolve(cloned);
             } else {
                 Promise.all([
                     self.loadTxtAsArray(REDFLAG_BASE_FLAGS),
@@ -133,7 +144,9 @@ export class ResourceLoader {
                     decks.tortDeck = new RedFlagDeck(result[0], result[1]);
 
                     self.redflagdata = decks;
-                    resolve(decks);
+                    var cloned: RedFlagDecks = RedFlagDecks.clone(self.redflagdata);
+                    //resolve(decks);
+                    resolve(cloned);
                 }).catch((reason) => {
                     reject(reason);
                 })
@@ -149,6 +162,12 @@ export class EmptyResource extends Resource {}
 //Basic Deck Data
 export class TraditionalDeck extends Resource {
     deck!: Card[]
+
+    static clone(data: TraditionalDeck): TraditionalDeck {
+        var r: TraditionalDeck = new TraditionalDeck();
+        r.deck = CloneArray<Card>(data.deck, cloneCard);
+        return r;
+    }
 }
 
 export class Card {
@@ -196,6 +215,18 @@ export class RedFlagDecks extends Resource {
                 return this.emptyDeck;
         }
     }
+
+    static clone(data: RedFlagDecks): RedFlagDecks {
+        var r = new RedFlagDecks();
+        r.baseDeck = RedFlagDeck.clone(data.baseDeck);
+        r.testDeck = RedFlagDeck.clone(data.testDeck);
+        r.cddeck = RedFlagDeck.clone(data.cddeck);
+        r.angDeck = RedFlagDeck.clone(data.angDeck);
+        r.tortDeck = RedFlagDeck.clone(data.tortDeck);
+        r.emptyDeck = RedFlagDeck.clone(data.emptyDeck);
+
+        return r
+    }
 }
 
 export class RedFlagDeck {
@@ -206,4 +237,31 @@ export class RedFlagDeck {
         this.flags = f;
         this.perks = p;
     }
+
+    static clone(data: RedFlagDeck): RedFlagDeck {
+        return new RedFlagDeck(CloneArray<string>(data.flags, cloneString), CloneArray<string>(data.perks, cloneString))
+    }
+}
+
+function CloneArray<E>(arr: Array<E>, cloneFunc?: Function): Array<E> {
+    var r: Array<E> = [];
+    for(var x = 0; x < arr.length; x++) {
+        if(cloneFunc == null) {
+            r.push(arr[x]);
+        } else {
+            r.push(cloneFunc(arr[x]));
+        }
+    }
+    return r;
+}
+
+function cloneString(str: string): string {
+    return str.slice();
+}
+
+function cloneCard(obj: Card): Card {
+    var r: Card = new Card();
+    r.suit = cloneString(obj.suit);
+    r.value = obj.value;
+    return r;
 }

@@ -415,7 +415,7 @@ export class RedFlags extends BaseRoom {
     }
 }
 
-export class gameData {
+class gameData {
     players: PlayerData[] = [];
     progress: boolean = false;
     currentDaterId!: number;
@@ -428,7 +428,7 @@ export class gameData {
     hideNames!: boolean;
 }
 
-export class PlayerData {
+class PlayerData {
     name!: string;
     points!: number;
     status!: string;
@@ -441,7 +441,7 @@ export class PlayerData {
     }
 }
 
-export class TableCardRow {
+class TableCardRow {
     pid!: number;
     playername!: string;
     perks!: Card[];
@@ -450,20 +450,20 @@ export class TableCardRow {
     flagspid!: number;
 }
 
-export class PrivateData {
+class PrivateData {
     flags!: Card[];
     perks!: Card[];
     responsibility!: number;
 }
 
-export class Card {
+class Card {
     content: string;
     constructor(c: string) {
         this.content = c;
     }
 }
 
-export class RedFlagData {
+class RedFlagData {
     flags!: string[]
     perks!: string[]
 }
