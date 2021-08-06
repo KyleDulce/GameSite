@@ -13,8 +13,6 @@ const path = require('path');
 const port = 80;
 const readline = require('serverline');
 
-// app.use(express.static(__dirname + '/public'));
-
 const allowedExt = [
   '.js',
   '.ico',
@@ -45,7 +43,6 @@ const server = require("http").Server(app);
 global.logger.info("Start Sequence", "Starting http server");
 //listen for request on port 80, and as a callback function have the port listened on logged
 server.listen(port, () => {
-  //console.log(`Server listening at port ${port}`);
   global.logger.info("Http Server", `Server listening at port ${port}`);
 });
 
