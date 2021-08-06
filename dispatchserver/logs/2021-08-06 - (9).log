@@ -1,0 +1,36 @@
+[2021-08-06|16:59:45] [Logging Manager/info]: Logger Started on: "./logs/2021-08-06 - (9).log"
+[2021-08-06|16:59:45] [Start Sequence/info]: Loading Modules...
+[2021-08-06|16:59:45] [Start Sequence/info]: Starting http server
+[2021-08-06|16:59:45] [Start Sequence/info]: Starting console manager
+[2021-08-06|16:59:45] [Start Sequence/info]: Done!
+[2021-08-06|16:59:45] [Http Server/info]: Server listening at port 80
+[2021-08-06|16:59:49] [Http/info]: Request from [::ffff:127.0.0.1] for '/room'
+[2021-08-06|16:59:49] [Http/info]: Providing index.html
+[2021-08-06|16:59:49] [Http/info]: Request from [::ffff:127.0.0.1] for '/styles.css'
+[2021-08-06|16:59:49] [Http/info]: Request from [::ffff:127.0.0.1] for '/runtime.js'
+[2021-08-06|16:59:49] [Http/info]: Request from [::ffff:127.0.0.1] for '/polyfills.js'
+[2021-08-06|16:59:49] [Http/info]: Request from [::ffff:127.0.0.1] for '/vendor.js'
+[2021-08-06|16:59:49] [Http/info]: Request from [::ffff:127.0.0.1] for '/main.js'
+[2021-08-06|16:59:50] [Http/info]: Request from [::ffff:127.0.0.1] for '/assets/global/Logo.png'
+[2021-08-06|16:59:50] [Http/info]: Request from [::ffff:127.0.0.1] for '/assets/IllegalPage/inconnu.png'
+[2021-08-06|16:59:50] [Http/info]: Request from [::ffff:127.0.0.1] for '/assets/IllegalPage/cry.png'
+[2021-08-06|16:59:50] [Http/info]: Request from [::ffff:127.0.0.1] for '/main.js.map'
+[2021-08-06|16:59:50] [Http/info]: Request from [::ffff:127.0.0.1] for '/styles.css.map'
+[2021-08-06|16:59:50] [Http/info]: Request from [::ffff:127.0.0.1] for '/vendor.js.map'
+[2021-08-06|16:59:58] [Http/info]: Request from [::ffff:127.0.0.1] for '/assets/home/thumbs.jpg'
+[2021-08-06|17:00:01] [Http/info]: Request from [::ffff:127.0.0.1] for '/assets/IllegalPage/clown.png'
+[2021-08-06|17:05:46] [Http/info]: Request from [::ffff:127.0.0.1] for '/external/'
+[2021-08-06|17:05:46] [Http/info]: Providing index.html
+[2021-08-06|17:05:46] [Http/info]: Request from [::ffff:127.0.0.1] for '/styles.css'
+[2021-08-06|17:05:46] [Http/info]: Request from [::ffff:127.0.0.1] for '/runtime.js'
+[2021-08-06|17:05:46] [Http/info]: Request from [::ffff:127.0.0.1] for '/polyfills.js'
+[2021-08-06|17:05:46] [Http/info]: Request from [::ffff:127.0.0.1] for '/vendor.js'
+[2021-08-06|17:05:46] [Http/info]: Request from [::ffff:127.0.0.1] for '/main.js'
+[2021-08-06|17:05:46] [Http/info]: Request from [::ffff:127.0.0.1] for '/assets/global/Logo.png'
+[2021-08-06|17:05:46] [Http/info]: Request from [::ffff:127.0.0.1] for '/assets/IllegalPage/inconnu.png'
+[2021-08-06|17:05:46] [Http/info]: Request from [::ffff:127.0.0.1] for '/assets/IllegalPage/cry.png'
+[2021-08-06|17:05:46] [Http/info]: Request from [::ffff:127.0.0.1] for '/main.js.map'
+[2021-08-06|17:05:46] [Http/info]: Request from [::ffff:127.0.0.1] for '/vendor.js.map'
+[2021-08-06|17:05:47] [Http/info]: Request from [::ffff:127.0.0.1] for '/styles.css.map'
+[2021-08-06|17:06:02] [Console/info]: Console issued server command: stop
+[2021-08-06|17:06:02] [Process/info]: Shutdown

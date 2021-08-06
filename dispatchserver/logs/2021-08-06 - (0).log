@@ -1,0 +1,12 @@
+[undefined] [undefined/info]: Logging Manager
+[2021-08-06|16:38:04] [Start Sequence/info]: Loading Modules...
+[2021-08-06|16:38:04] [Start Sequence/info]: Starting http server
+[2021-08-06|16:38:04] [Start Sequence/info]: Starting console manager
+[2021-08-06|16:38:04] [Start Sequence/info]: Done!
+[2021-08-06|16:38:04] [Http Server/info]: Server listening at port 80
+[2021-08-06|16:38:21] [Console/info]: Console issued server command: f
+[2021-08-06|16:38:21] [Console/info]: Command does not exist!
+[2021-08-06|16:38:21] [Console/info]: Console issued server command: f
+[2021-08-06|16:38:21] [Console/info]: Command does not exist!
+[2021-08-06|16:38:27] [Console/info]: Console issued server command: stop
+[2021-08-06|16:38:27] [Process/info]: Shutdown

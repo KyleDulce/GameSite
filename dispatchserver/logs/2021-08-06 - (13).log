@@ -1,0 +1,9 @@
+[2021-08-06|17:20:17] [Logging Manager/info]: Logger Started on: "./logs/2021-08-06 - (13).log"
+[2021-08-06|17:20:17] [Start Sequence/info]: Loading Modules...
+[2021-08-06|17:20:17] [Start Sequence/info]: Starting http server
+[2021-08-06|17:20:17] [Start Sequence/info]: Starting console manager
+[2021-08-06|17:20:17] [Start Sequence/info]: Done!
+[2021-08-06|17:20:17] [Http Server/info]: Server listening at port 80
+[2021-08-06|17:20:33] [Http/info]: Request from [::ffff:127.0.0.1] for '/external'
+[2021-08-06|17:20:43] [Console/info]: Console issued server command: stop
+[2021-08-06|17:20:43] [Process/info]: Shutdown
