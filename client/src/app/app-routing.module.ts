@@ -16,7 +16,12 @@ const routes: Routes = [
   
   {path: "debug/testpage", component: ChangeNameComponent},
 
-  {path:"external/**", component:RedirectPageComponent},
+  {path:"external", children: [
+    {
+      path: "**",
+      component:RedirectPageComponent
+    }
+  ]},
   {path: "**", component: IllegalPageComponent}
 ]
 
