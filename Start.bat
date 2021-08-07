@@ -15,5 +15,5 @@ if %ERRORLEVEL% NEQ 0 (
     EXIT
 )
 echo "Starting server"
-start cmd /k "cd server_ts && StartServer.bat"
+start cmd /k "cd server_ts && QuickStart.bat"
 start cmd /k "cd dispatchserver && StartDistributor.bat"
