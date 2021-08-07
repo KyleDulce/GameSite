@@ -22,7 +22,7 @@ const allowedExt = [
 ];
 
 app.get('*', (req, res) => {
-  global.logger.info("Http", `Request from [${req.ip}] for '${req.originalUrl}'`);
+  global.logger.info("Http", `Request from [${req.socket.remoteAddress}] for '${req.originalUrl}'`);
   if (allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) {
     res.sendFile(path.join(__dirname, "/public", req.url));
   } else if(req.url.indexOf("/external") == 0){
@@ -107,7 +107,7 @@ readline.on('completer', function(arg) {
       return;
     }
   }
-  logger.info("Console", "Command does not exist!");
+  logger.warn("Console", "Command does not exist!");
 
 });
 

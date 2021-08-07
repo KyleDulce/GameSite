@@ -4,7 +4,6 @@ function Logger() {
 
     console.log("discovering filename");
     let date_ob = new Date();
-    //this.date_string = date_ob.getFullYear().toString() + "-" + date_ob.getMonth().toString() + "-" + date_ob.getDate().toString();
     let date_string = date_ob.toISOString().replace(/T.+/, '');
 
     //check if file with date already exists
@@ -33,9 +32,9 @@ function Logger() {
 
     const logLevels = {
         levels: {
-            error: 0,
+            info: 0,
             warn: 1,
-            info: 2
+            error: 2
         },
         colors: {
             error: 'red',
@@ -43,20 +42,27 @@ function Logger() {
             info: 'white'
         }
     }
-    const logFormat = winston.format.printf(({ level, message, label, timestamp }) => { return `[${timestamp}] [${label}/${level}]: ${message}`})
     winston.addColors(logLevels.colors);
-    winston.format.combine(
-        winston.format.colorize(),
-        logFormat
+    const format = winston.format.combine(
+        winston.format.colorize({all: true}),
+        winston.format.printf(({ level, message, label, timestamp }) => { return `[${timestamp}] [${label}/${level}]: ${message}`})
     );
 
-
     this.logger = winston.createLogger({
+        level: 'error',
         levels: logLevels.levels,
-        format: logFormat,
+        format: format,
         transports: [
-            new winston.transports.Console(),
-            new winston.transports.File({ filename: filename})
+            new winston.transports.Console({
+                colorize: true,
+                prettyPrint: true
+            }),
+            new winston.transports.File({ 
+                filename: filename,
+                maxsize: 5000000,
+                maxFiles: 10,
+                colorize: false
+            })
         ]
     });
 
@@ -66,9 +72,7 @@ function Logger() {
 Logger.prototype.getCurrentTimeString = function getCurrentTimeString() {
     let now = Date.now();
     let now_ob = new Date(now);
-    // return now_ob.getFullYear().toString() + "-" + now_ob.getMonth().toString() 
-    //         + "-" + now_ob.getDate().toString() + "|" + now_ob.getHours().toString() 
-    //         + ":" + now_ob.getMinutes().toString() + ":" + now_ob.getSeconds().toString();
+
     return now_ob.toISOString()
         .replace(/T/, '|')
         .replace(/\..+/, '');
