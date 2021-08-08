@@ -5,7 +5,11 @@ StopCommand.prototype.getCommandString = function getCommandString() {return 'st
 
 StopCommand.prototype.completer = function completer(args, hits) {return [];}
 
-StopCommand.prototype.run = function run(appInterface) {
+StopCommand.prototype.cmdFormat = function cmdFormat() {return 'stop'; }
+
+StopCommand.prototype.description = function description() {return 'Stops the server'; }
+
+StopCommand.prototype.run = function run(appInterface, args) {
     appInterface.shutdown();
 }
 

@@ -5,6 +5,8 @@ console.log("Preparing Logger");
 const Logger_lib = require("./src/Logger.js");
 global.logger = new Logger_lib();
 
+var StartTime = Date.now();
+
 global.logger.info("Start Sequence", "Loading Modules...");
 
 const express = require('express');
@@ -50,6 +52,7 @@ server.listen(port, () => {
 global.logger.info("Start Sequence", "Starting console manager");
 //setup enabled commands
 commands = [
+  new (require('./src/Command/HelpCommand.js'))(),
   new (require('./src/Command/StopCommand.js'))()
 ];
 
@@ -61,9 +64,6 @@ function appInterface() {};
 appInterface.prototype.shutdown = function shutdown() {
   fullShutdown();
 }
-appInterface.prototype.restart = function restart() {
-  fullRestart();
-}
 appInterface.prototype.getCommands = function getCommands() {
   return commands;
 }
@@ -72,12 +72,7 @@ const CmdInterface = new appInterface();
 
 //completer
 readline.on('completer', function(arg) {
-  //if finds only 1 hit, complete it
-  if(arg.hits.length == 1) {
-    arg.line = arg.hits[0];
-  }
 
-  //otherwise suggest
   //split line into arguments
   cmdArgs = arg.line.split(' ');
 
@@ -88,9 +83,9 @@ readline.on('completer', function(arg) {
   } else {
     //find command
     for(let cmd of commands) {
-      if(cmd.getCommandString() == arg[0]) {
+      if(cmd.getCommandString().toLowerCase() == cmdArgs[0].toLowerCase()) {
         arg.hits = cmd.completer(cmdArgs, arg.hits);
-        return;
+        break;
       }
     }
   }
@@ -102,8 +97,8 @@ readline.on('completer', function(arg) {
   arg = line.split(' ');
 
   for(let cmd of commands) {
-    if(cmd.getCommandString() == arg[0]) {
-      cmd.run(CmdInterface);
+    if(cmd.getCommandString().toLowerCase() == arg[0].toLowerCase()) {
+      cmd.run(CmdInterface, arg);
       return;
     }
   }
@@ -129,11 +124,12 @@ function fullShutdown() {
   })
 }
 function softStop(callback) {
-  console.log("Closing Http Server");
+  logger.info("Http Server", "Closing Http Server");
   server.close(() => {
-    console.log("HTTP Server closed");
+    logger.info("Http Server", "HTTP Server closed");
     callback();
   });
 }
 
-logger.info("Start Sequence", "Done!");
+var completeTime = Date.now() - StartTime;
+logger.info("Start Sequence", `Done (${completeTime} ms)!`);

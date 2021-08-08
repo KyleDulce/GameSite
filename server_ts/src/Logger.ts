@@ -57,12 +57,13 @@ export default class AppLogger {
                 { return `[${data.timestamp}] [${data.label}/${data.level}]: ${data.message}` })
         );
         const consoleFormat = winston.format.combine(
-            winston.format.colorize(),
+            winston.format.colorize({all: true}),
             winston.format.printf((data) => 
                 { return `\x1b[36m[${data.timestamp}] [\x1b[32m${data.label}\x1b[36m/${data.level}\x1b[36m]: ${data.message}` })
         );
 
         this.logger = winston.createLogger({
+            level: 'info',
             levels: logLevels.levels,
             transports: [
                 new (winston.transports.Console)({ format: consoleFormat}),

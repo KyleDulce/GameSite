@@ -1,6 +1,23 @@
+
 //Setup Prereq
 export default class AppInterface {
     public static Logger: Logger;
+    public static Shutdown(): void {
+        this.SoftStop(() => {
+            this.Logger.info("Process", "Shutdown");
+            setTimeout(() => {
+                process.exit(0);
+            }, 1000);
+        });
+    }
+
+    private static SoftStop(callback: Function): void {
+        this.Logger.info("Http Server", "Closing Http Server");
+        server.close( () => {
+            this.Logger.info("Http Server", "Http Server Closed");
+            callback();
+        });
+    }
 }
 
 //setup logger
@@ -17,8 +34,10 @@ import express from 'express';
 import http from 'http';
 import socketio from 'socket.io';
 import { Rooms } from './rooms';
+import * as ConsoleCommand from './Command/ConsoleCommand';
 
 const cors = require('cors');
+const readline = require('serverline');
 const expressInst = express();
 expressInst.use(cors());
 
@@ -93,6 +112,49 @@ logger.info("Start Sequence", "Starting http server");
 server.listen(port, () => {
     logger.info("Http", `Server running at port ${port}`);
 });
+
+//start console manager
+logger.info("Start Sequence", "Starting console manager");
+//setup enabled commands
+var commands = ConsoleCommand.getCommandObjects();
+
+readline.init();
+readline.setPrompt('> ');
+
+//completer
+readline.on('completer', function(arg: {hits: string[], line: string}) {
+    var cmdArgs: string[] = arg.line.split(' ');
+
+    arg.hits = [];
+
+    //checks only 1 argument
+    if(cmdArgs.length <= 1) {
+        //suggest commands
+        arg.hits = commands.map(cmdStr => cmdStr.getCommandString());
+    } else {
+        //suggest command completion
+        for(let cmd of commands) {
+            if(cmd.getCommandString().toLowerCase() == cmdArgs[0].toLowerCase()) {
+                arg.hits = cmd.getCompletion(cmdArgs, arg.hits);
+            }
+        }
+    }
+})
+//command handler
+.on('line', function(line: string) {
+    logger.info("Console", `Console issued Server command: ${line}`)
+
+    var cmdArgs: string[] = line.split(' ');
+
+    for(let cmd of commands) {
+        if(cmd.getCommandString().toLowerCase() == cmdArgs[0].toLowerCase()) {
+            cmd.run(cmdArgs);
+            return;
+        }
+    }
+
+    logger.warn("Console", `Command: '${cmdArgs[0]}' does not exist!`);
+})
 
 var completeTime = Date.now() - StartTime;
 logger.info("Start Sequence", `Done (${completeTime} ms)!`);

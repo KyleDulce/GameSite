@@ -32,9 +32,9 @@ function Logger() {
 
     const logLevels = {
         levels: {
-            info: 0,
+            error: 0,
             warn: 1,
-            error: 2
+            info: 2
         },
         colors: {
             error: 'red',
@@ -48,11 +48,12 @@ function Logger() {
     );
     const consoleformat = winston.format.combine(
         winston.format.colorize({all: true}),
-        winston.format.printf(({ level, message, label, timestamp }) => { return `\x1b[36m[${timestamp}] [\x1b[32m${label}\x1b[36m/${level}\x1b[36m]: ${message}` })
+        winston.format.printf(({ level, message, label, timestamp }) => 
+            { return `\x1b[36m[${timestamp}] [\x1b[32m${label}\x1b[36m/${level}\x1b[36m]: ${message}` })
     );
 
     this.logger = winston.createLogger({
-        level: 'error',
+        level: 'info',
         levels: logLevels.levels,
         transports: [
             new winston.transports.Console({
