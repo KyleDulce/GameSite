@@ -43,25 +43,24 @@ function Logger() {
         }
     }
     winston.addColors(logLevels.colors);
-    const format = winston.format.combine(
-        winston.format.colorize({all: true}),
+    const fileformat = winston.format.combine(
         winston.format.printf(({ level, message, label, timestamp }) => { return `[${timestamp}] [${label}/${level}]: ${message}`})
+    );
+    const consoleformat = winston.format.combine(
+        winston.format.colorize({all: true}),
+        winston.format.printf(({ level, message, label, timestamp }) => { return `\x1b[36m[${timestamp}] [\x1b[32m${label}\x1b[36m/${level}\x1b[36m]: ${message}` })
     );
 
     this.logger = winston.createLogger({
         level: 'error',
         levels: logLevels.levels,
-        format: format,
         transports: [
             new winston.transports.Console({
-                colorize: true,
-                prettyPrint: true
+                format: consoleformat
             }),
             new winston.transports.File({ 
-                filename: filename,
-                maxsize: 5000000,
-                maxFiles: 10,
-                colorize: false
+                format: fileformat,
+                filename: filename
             })
         ]
     });

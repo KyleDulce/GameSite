@@ -52,18 +52,21 @@ export default class AppLogger {
         }
 
         winston.addColors(logLevels.colors);
-        const format = winston.format.combine(
-            winston.format.colorize({all: true}),
+        const fileformat = winston.format.combine(
             winston.format.printf((data) => 
                 { return `[${data.timestamp}] [${data.label}/${data.level}]: ${data.message}` })
+        );
+        const consoleFormat = winston.format.combine(
+            winston.format.colorize(),
+            winston.format.printf((data) => 
+                { return `\x1b[36m[${data.timestamp}] [\x1b[32m${data.label}\x1b[36m/${data.level}\x1b[36m]: ${data.message}` })
         );
 
         this.logger = winston.createLogger({
             levels: logLevels.levels,
-            format: format,
             transports: [
-                new (winston.transports.Console)(),
-                new (winston.transports.File)({ filename: filename })
+                new (winston.transports.Console)({ format: consoleFormat}),
+                new (winston.transports.File)({ filename: filename, format: fileformat })
             ]
         });
 
