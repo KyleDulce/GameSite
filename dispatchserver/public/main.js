@@ -1118,7 +1118,7 @@ AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCompo
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6, "Create Room");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "button", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8, "Restaurant World");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8, "Pet World");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "form", 5);
@@ -1708,6 +1708,7 @@ __webpack_require__.r(__webpack_exports__);
 class RedirectPageComponent {
     constructor() { }
     ngOnInit() {
+        console.log("Hey listen im working im working hey listen hey hey listen");
         window.location.reload();
     }
 }
@@ -2885,7 +2886,12 @@ const routes = [
     { path: "create", component: _components_games_room_creator_room_creator_component__WEBPACK_IMPORTED_MODULE_5__["RoomCreatorComponent"] },
     { path: "game", component: _components_games_game_page_game_page_component__WEBPACK_IMPORTED_MODULE_4__["GamePageComponent"] },
     { path: "debug/testpage", component: _components_dialogs_change_name_change_name_component__WEBPACK_IMPORTED_MODULE_3__["ChangeNameComponent"] },
-    { path: "external/**", component: _components_redirect_page_redirect_page_component__WEBPACK_IMPORTED_MODULE_8__["RedirectPageComponent"] },
+    { path: "external", children: [
+            {
+                path: "**",
+                component: _components_redirect_page_redirect_page_component__WEBPACK_IMPORTED_MODULE_8__["RedirectPageComponent"]
+            }
+        ] },
     { path: "**", component: _components_illegal_page_illegal_page_component__WEBPACK_IMPORTED_MODULE_7__["IllegalPageComponent"] }
 ];
 class AppRoutingModule {

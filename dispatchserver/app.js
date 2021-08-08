@@ -26,10 +26,10 @@ app.get('*', (req, res) => {
   if (allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) {
     res.sendFile(path.join(__dirname, "/public", req.url));
   } else if(req.url.indexOf("/external") == 0){
-    res.sendFile(path.join(__dirname, "/public", req.url), function(err) {
+    res.sendFile(path.join(__dirname, req.url), function(err) {
       if(err) {
-        global.logger.warn("Http", "Requested Resource not found! " + req.originalUrl);
-        res.sendFile(path.join(__dirname, "/public/index.html"));
+        global.logger.warn("Http", "Error for request of: " + path.join(__dirname, req.url) + " Reason: " + err);
+        res.redirect(301, "/resource-external-not-found");
       }
     });
   } else {
