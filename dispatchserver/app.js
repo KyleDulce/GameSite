@@ -107,7 +107,7 @@ readline.on('completer', function(arg) {
       return;
     }
   }
-  logger.warn("Console", "Command does not exist!");
+  logger.warn("Console", `Command '${arg[0]}' does not exist!`);
 
 });
 
