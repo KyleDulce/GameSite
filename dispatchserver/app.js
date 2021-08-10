@@ -25,15 +25,15 @@ const allowedExt = [
 
 app.get('*', (req, res) => {
   global.logger.info("Http", `Request from [${req.socket.remoteAddress}] for '${req.originalUrl}'`);
-  if (allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) {
-    res.sendFile(path.join(__dirname, "/public", req.url));
-  } else if(req.url.indexOf("/external") == 0){
+  if(req.url.indexOf("/external") == 0){
     res.sendFile(path.join(__dirname, req.url), function(err) {
       if(err) {
         global.logger.warn("Http", "Error for request of: " + path.join(__dirname, req.url) + " Reason: " + err);
         res.redirect(301, "/resource-external-not-found");
       }
     });
+  } else if (allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) {
+    res.sendFile(path.join(__dirname, "/public", req.url));
   } else {
     global.logger.info("Http", "Providing index.html");
     res.sendFile(path.join(__dirname, "/public/index.html"));

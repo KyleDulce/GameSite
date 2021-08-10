@@ -1,3 +1,4 @@
+import { Server } from "socket.io";
 import { Resource } from "../ResourceLoader";
 import { BaseRoom } from "./BaseRoom";
 import { Poker } from "./games/Poker";
@@ -35,7 +36,7 @@ export class GameTypesConverter {
         }
     }
 
-    public static createObjectFromType(type: GameTypes, rid: number, maxplayers: number, socket: SocketIO.Server, resourceLoader: Resource): BaseRoom | null {
+    public static createObjectFromType(type: GameTypes, rid: number, maxplayers: number, socket: Server, resourceLoader: Resource): BaseRoom | null {
         switch (type) {
             case GameTypes.REDFLAGS:
                 return new RedFlags(rid, type, maxplayers, socket, resourceLoader);

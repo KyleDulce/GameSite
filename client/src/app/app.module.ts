@@ -40,11 +40,13 @@ import { PokerComponent } from './components/games/cardgames/poker/poker.compone
 import { RedirectPageComponent } from './components/redirect-page/redirect-page.component';
 
 const config: SocketIoConfig = {
-  url: "http://" + window.location.hostname + ":3000", options: {
-    cors: {
-      origin: "*",
-      methods: ["GET", "POST"]
-    }
+  url: "http://" + window.location.hostname + ":3000",
+  options: {
+    // cors: {
+    //   origin: "*",
+    //   methods: ["GET", "POST"]
+    // }
+    
   }
 };
 

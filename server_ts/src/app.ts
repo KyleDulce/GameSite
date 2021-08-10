@@ -32,7 +32,7 @@ logger.info("Start Sequence", "Loading Modules...");
 //Setup server
 import express from 'express';
 import http from 'http';
-import socketio from 'socket.io';
+import {Server, Socket } from 'socket.io';
 import { Rooms } from './rooms';
 import * as ConsoleCommand from './Command/ConsoleCommand';
 
@@ -44,16 +44,20 @@ expressInst.use(cors());
 logger.info("Start Sequence", "Initializing Server");
 
 const server = http.createServer(expressInst);
-const Socket = socketio(server);
+const Socket_Obj = new Server(server, {
+    cors: {
+        origin: '*'
+    }
+});
 
-const roomManager = new Rooms(Socket);
+const roomManager = new Rooms(Socket_Obj);
 
 const port = process.env.PORT || 3000;
 
 logger.info("Start Sequence", "Setting up Socket.io");
 
 //start sockets
-Socket.sockets.on("connection", (socket) => {
+Socket_Obj.sockets.on("connection", (socket: Socket) => {
 
     logger.info("Socket.io", `User[${socket.request.connection.remoteAddress}] connected with Id: ${socket.id}`)
 
@@ -74,7 +78,7 @@ Socket.sockets.on("connection", (socket) => {
     });
 
     socket.on("POST chat", data =>{
-        Socket.emit("chat" + data.rid.toString(), data);
+        Socket_Obj.emit("chat" + data.rid.toString(), data);
     });
 
     socket.on("POST JoinDetails", data => {

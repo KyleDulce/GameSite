@@ -1,7 +1,8 @@
+import { Socket } from "socket.io";
 import { BaseRoom } from "../BaseRoom";
 
 export class Tycoon extends BaseRoom {
-    public includePlayer(pid: number, socket: SocketIO.Socket): void {
+    public includePlayer(pid: number, socket: Socket): void {
 
     }
 
@@ -17,7 +18,7 @@ export class Tycoon extends BaseRoom {
 
     }
 
-    public getData(data: any, socket: SocketIO.Socket): void {
+    public getData(data: any, socket: Socket): void {
 
     }
 }
