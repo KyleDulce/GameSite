@@ -1,10 +1,21 @@
 
 //Setup Prereq
+console.log("Setting up...");
+
+const START_LABEL: string = "Start Sequence";
+const HTTP_LABEL: string = "Http";
+const SOCKETIO_LABEL: string = "Socket.io";
+const CONSOLE_LABEL: string = "Console";
+
 export default class AppInterface {
+    //labels
+    public static GENERIC_PROCESS_LABEL: string = "Process";
+
     public static Logger: Logger;
+    public static sqldatabase: SqlDatabase;
     public static Shutdown(): void {
         this.SoftStop(() => {
-            this.Logger.info("Process", "Shutdown");
+            this.Logger.info(AppInterface.GENERIC_PROCESS_LABEL, "Shutdown");
             setTimeout(() => {
                 process.exit(0);
             }, 1000);
@@ -12,10 +23,13 @@ export default class AppInterface {
     }
 
     private static SoftStop(callback: Function): void {
-        this.Logger.info("Http Server", "Closing Http Server");
+        this.Logger.info(HTTP_LABEL, "Closing Http Server");
         server.close( () => {
-            this.Logger.info("Http Server", "Http Server Closed");
-            callback();
+            this.Logger.info(HTTP_LABEL, "Http Server Closed");
+            //callback();
+            this.sqldatabase.close(() => {
+                callback();
+            })
         });
     }
 }
@@ -27,7 +41,8 @@ AppInterface.Logger = new Logger();
 
 var logger: Logger = AppInterface.Logger;
 var StartTime: number = Date.now();
-logger.info("Start Sequence", "Loading Modules...");
+
+logger.info(START_LABEL, "Loading Modules...");
 
 //Setup server
 import express from 'express';
@@ -35,13 +50,14 @@ import http from 'http';
 import {Server, Socket } from 'socket.io';
 import { Rooms } from './rooms';
 import * as ConsoleCommand from './Command/ConsoleCommand';
+import SqlDatabase from './Database/Sqlite/SqlDatabase';
 
 const cors = require('cors');
 const readline = require('serverline');
 const expressInst = express();
 expressInst.use(cors());
 
-logger.info("Start Sequence", "Initializing Server");
+logger.info(START_LABEL, "Initializing Server");
 
 const server = http.createServer(expressInst);
 const Socket_Obj = new Server(server, {
@@ -54,12 +70,12 @@ const roomManager = new Rooms(Socket_Obj);
 
 const port = process.env.PORT || 3000;
 
-logger.info("Start Sequence", "Setting up Socket.io");
+logger.info(START_LABEL, "Setting up Socket.io");
 
 //start sockets
 Socket_Obj.sockets.on("connection", (socket: Socket) => {
 
-    logger.info("Socket.io", `User[${socket.request.connection.remoteAddress}] connected with Id: ${socket.id}`)
+    logger.info(SOCKETIO_LABEL, `User[${socket.request.connection.remoteAddress}] connected with Id: ${socket.id}`)
 
     socket.on("getRooms", data => {
         var response = roomManager.getTransferableRoomDataList();
@@ -108,17 +124,21 @@ Socket_Obj.sockets.on("connection", (socket: Socket) => {
     });
 
     socket.on("disconnect", data => {
-        logger.info("Socket.io", `User[${socket.request.connection.remoteAddress}] disconnected`);
+        logger.info(SOCKETIO_LABEL, `User[${socket.request.connection.remoteAddress}] disconnected`);
     });
 });
 
-logger.info("Start Sequence", "Starting http server");
+//Start Sql Server
+
+
+//Start Http server
+logger.info(START_LABEL, "Starting http server");
 server.listen(port, () => {
-    logger.info("Http", `Server running at port ${port}`);
+    logger.info(HTTP_LABEL, `Server running at port ${port}`);
 });
 
 //start console manager
-logger.info("Start Sequence", "Starting console manager");
+logger.info(START_LABEL, "Starting console manager");
 //setup enabled commands
 var commands = ConsoleCommand.getCommandObjects();
 
@@ -146,7 +166,7 @@ readline.on('completer', function(arg: {hits: string[], line: string}) {
 })
 //command handler
 .on('line', function(line: string) {
-    logger.info("Console", `Console issued Server command: ${line}`)
+    logger.info(CONSOLE_LABEL, `Console issued Server command: ${line}`)
 
     var cmdArgs: string[] = line.split(' ');
 
@@ -157,8 +177,8 @@ readline.on('completer', function(arg: {hits: string[], line: string}) {
         }
     }
 
-    logger.warn("Console", `Command: '${cmdArgs[0]}' does not exist!`);
+    logger.warn(CONSOLE_LABEL, `Command: '${cmdArgs[0]}' does not exist!`);
 })
 
 var completeTime = Date.now() - StartTime;
-logger.info("Start Sequence", `Done (${completeTime} ms)!`);
+logger.info(START_LABEL, `Done (${completeTime} ms)!`);
